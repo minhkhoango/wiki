@@ -1,0 +1,19 @@
+
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia
+{% endblock %}
+    
+{% block body %}
+    <h1>Create A New Wiki Page</h1>
+
+    <form action = "{% url 'addpage' %}" method = "POST">
+        {% csrf_token %}
+        <input class = "text_inp" type = "text" name = "title" type = "text" placeholder = "Enter Title" value = {{title}}>
+        <br>
+        <textarea class = "text_inp" name = "content" type = "text" rows = "4" cols = "30" placeholder = "Enter Markdown Content">{{ content }}</textarea>
+        <br>
+        <input type = "submit" value = "Commit" class = "btn btn-primary">
+    </form>
+{% endblock %}
