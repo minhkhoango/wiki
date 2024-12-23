@@ -83,19 +83,29 @@ def addpage(request):
 
 def random_page(request):
     title = random.choice(util.list_entries())
-    file = convert_md_to_html(title)
+    content = convert_md_to_html(title)
     return render(request, "encyclopedia/entry.html", {
         "title": title,
-        "file": file
+        "content": content,
     })
 
-def edit(request, title):
+def edit(request):
     if request.method == "POST":
-        content = request.POST['content']
-        util.save_entry(title, content)
+        title = request.POST["entry_title"]
+        content = util.get_entry(title)
     
-    return render(request, 'encyclopedia/addpage.html', {
+    return render(request, 'encyclopedia/edit.html', {
         "title": title,
         "content":content,
     })
     
+def save_edit(request):
+    if request.method == "POST":
+        title = request.POST["title"]
+        content = request.POST["content"]
+        util.save_entry(title,content)
+        content = convert_md_to_html(title)
+        return render(request, 'encyclopedia/entry.html', {
+            "title" : title,
+            "content" : content,
+        })

@@ -6,9 +6,9 @@
 
 {% block body %}
     {{ content|safe }}
-    <form action = "{% url 'edit' title=title %}" method = "POST">
+    <form action = "{% url 'edit' %}" method = "POST">
         {% csrf_token %}
-        <input type = "hidden" name = "content" value = "{{ content }}">
+        <input type = "hidden" name = "entry_title" value = "{{ title }}">
         <input type = "submit" class = "btn btn-primary" value = "Edit">
     </form>
 {% endblock %}
